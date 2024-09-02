@@ -1,0 +1,25 @@
+services:
+  mongodb:
+    restart: unless-stopped
+    image: mongo:latest
+    container_name: noodlapp-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo_data:/data/
+      - ./init_scripts:/docker-entrypoint-initdb.d
+    env_file:
+      - ./.env.database
+  noodl-backend:
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+    image: noodl-backend:latest
+    build:
+      context: ./noodl-cloudservice
+      dockerfile: Dockerfile
+    container_name: noodl-backend
+    env_file:
+      - ./.env.noodl_backend
+    ports:
+      - "3000:3000"

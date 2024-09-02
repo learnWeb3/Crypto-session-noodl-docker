@@ -1,0 +1,3 @@
+[submodule "noodl-cloudservice"]
+	path = noodl-cloudservice
+	url = https://github.com/noodlapp/noodl-cloudservice.git
